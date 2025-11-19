@@ -1,0 +1,84 @@
+version: '3.9'
+services:
+  coordinator:
+    build:
+      context: ./two_pc
+      dockerfile: Dockerfile.coordinator
+    container_name: two-pc-coordinator
+    environment:
+      - PARTICIPANTS=participant1:50051,participant2:50052,participant3:50053,participant4:50054
+      - VOTE_INTERVAL=10
+    depends_on:
+      - participant1
+      - participant2
+      - participant3
+      - participant4
+    healthcheck:
+      test: ["CMD-SHELL", "pgrep -f coordinator.py"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  participant1:
+    build:
+      context: ./two_pc
+      dockerfile: Dockerfile.participant
+    container_name: two-pc-participant-1
+    environment:
+      - VOTING_PORT=50051
+      - PARTICIPANT_ID=participant-1
+    ports:
+      - "50051:50051"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import grpc, two_pc_pb2, two_pc_pb2_grpc; c=grpc.insecure_channel('localhost:50051'); s=two_pc_pb2_grpc.TwoPCVotingStub(c); s.RequestVote(two_pc_pb2.VoteRequest(transaction_id='health', participant_id='health', operation='health'));\""]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  participant2:
+    build:
+      context: ./two_pc
+      dockerfile: Dockerfile.participant
+    container_name: two-pc-participant-2
+    environment:
+      - VOTING_PORT=50052
+      - PARTICIPANT_ID=participant-2
+    ports:
+      - "50052:50052"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import grpc, two_pc_pb2, two_pc_pb2_grpc; c=grpc.insecure_channel('localhost:50052'); s=two_pc_pb2_grpc.TwoPCVotingStub(c); s.RequestVote(two_pc_pb2.VoteRequest(transaction_id='health', participant_id='health', operation='health'));\""]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  participant3:
+    build:
+      context: ./two_pc
+      dockerfile: Dockerfile.participant
+    container_name: two-pc-participant-3
+    environment:
+      - VOTING_PORT=50053
+      - PARTICIPANT_ID=participant-3
+    ports:
+      - "50053:50053"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import grpc, two_pc_pb2, two_pc_pb2_grpc; c=grpc.insecure_channel('localhost:50053'); s=two_pc_pb2_grpc.TwoPCVotingStub(c); s.RequestVote(two_pc_pb2.VoteRequest(transaction_id='health', participant_id='health', operation='health'));\""]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  participant4:
+    build:
+      context: ./two_pc
+      dockerfile: Dockerfile.participant
+    container_name: two-pc-participant-4
+    environment:
+      - VOTING_PORT=50054
+      - PARTICIPANT_ID=participant-4
+    ports:
+      - "50054:50054"
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import grpc, two_pc_pb2, two_pc_pb2_grpc; c=grpc.insecure_channel('localhost:50054'); s=two_pc_pb2_grpc.TwoPCVotingStub(c); s.RequestVote(two_pc_pb2.VoteRequest(transaction_id='health', participant_id='health', operation='health'));\""]
+      interval: 10s
+      timeout: 5s
+      retries: 3

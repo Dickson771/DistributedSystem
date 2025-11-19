@@ -1,0 +1,15 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY two_pc_pb2.py two_pc_pb2_grpc.py voting_server.py ./
+
+ENV VOTING_PORT=50051
+ENV PARTICIPANT_ID=participant
+ENV VOTE_DECISION=commit
+
+EXPOSE 50051
+CMD ["python", "voting_server.py"]

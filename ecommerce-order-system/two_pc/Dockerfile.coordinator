@@ -1,0 +1,13 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY two_pc_pb2.py two_pc_pb2_grpc.py coordinator.py ./
+
+ENV PARTICIPANTS="participant1:50051,participant2:50052,participant3:50053,participant4:50054"
+ENV VOTE_INTERVAL=15
+
+CMD ["python", "coordinator.py"]

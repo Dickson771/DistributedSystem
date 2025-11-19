@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  node1:
+    build: .
+    container_name: consensus-node1
+    environment:
+      - NODE_ID=node1
+      - ADDRESS=0.0.0.0:50051
+      - PEERS=node1=consensus-node1:50051,node2=consensus-node2:50052,node3=consensus-node3:50053,node4=consensus-node4:50054,node5=consensus-node5:50055
+      - ALLOW_COMMIT=true
+    ports:
+      - "50051:50051"
+
+  node2:
+    build: .
+    container_name: consensus-node2
+    environment:
+      - NODE_ID=node2
+      - ADDRESS=0.0.0.0:50052
+      - PEERS=node1=consensus-node1:50051,node2=consensus-node2:50052,node3=consensus-node3:50053,node4=consensus-node4:50054,node5=consensus-node5:50055
+      - ALLOW_COMMIT=true
+    ports:
+      - "50052:50052"
+
+  node3:
+    build: .
+    container_name: consensus-node3
+    environment:
+      - NODE_ID=node3
+      - ADDRESS=0.0.0.0:50053
+      - PEERS=node1=consensus-node1:50051,node2=consensus-node2:50052,node3=consensus-node3:50053,node4=consensus-node4:50054,node5=consensus-node5:50055
+      - ALLOW_COMMIT=false
+    ports:
+      - "50053:50053"
+
+  node4:
+    build: .
+    container_name: consensus-node4
+    environment:
+      - NODE_ID=node4
+      - ADDRESS=0.0.0.0:50054
+      - PEERS=node1=consensus-node1:50051,node2=consensus-node2:50052,node3=consensus-node3:50053,node4=consensus-node4:50054,node5=consensus-node5:50055
+      - ALLOW_COMMIT=true
+    ports:
+      - "50054:50054"
+
+  node5:
+    build: .
+    container_name: consensus-node5
+    environment:
+      - NODE_ID=node5
+      - ADDRESS=0.0.0.0:50055
+      - PEERS=node1=consensus-node1:50051,node2=consensus-node2:50052,node3=consensus-node3:50053,node4=consensus-node4:50054,node5=consensus-node5:50055
+      - ALLOW_COMMIT=true
+    ports:
+      - "50055:50055"

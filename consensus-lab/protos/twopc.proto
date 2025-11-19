@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package twopc;
+
+// Two Phase Commit service covering both voting and decision phases.
+service TwoPhaseCommit {
+  rpc VoteRequest(VoteRequestMessage) returns (VoteResponseMessage);
+  rpc Decision(DecisionRequest) returns (DecisionAck);
+}
+
+message VoteRequestMessage {
+  string transaction_id = 1;
+  string payload = 2;
+  string coordinator_id = 3;
+}
+
+message VoteResponseMessage {
+  bool commit_ready = 1;
+  string participant_id = 2;
+  string explanation = 3;
+}
+
+message DecisionRequest {
+  string transaction_id = 1;
+  string coordinator_id = 2;
+  bool commit = 3;
+}
+
+message DecisionAck {
+  string participant_id = 1;
+  bool committed = 2;
+}

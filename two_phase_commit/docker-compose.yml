@@ -1,0 +1,53 @@
+version: "3.9"
+
+services:
+  participant_a:
+    build:
+      context: .
+      dockerfile: participant/Dockerfile
+    environment:
+      PARTICIPANT_ID: participant-a
+      INITIAL_BALANCE: "150"
+      VOTING_PORT: "6100"
+      DECISION_PORT: "6200"
+    ports:
+      - "6100:6100"
+      - "6200:6200"
+    networks:
+      - two_pc_net
+
+  participant_b:
+    build:
+      context: .
+      dockerfile: participant/Dockerfile
+    environment:
+      PARTICIPANT_ID: participant-b
+      INITIAL_BALANCE: "80"
+      VOTING_PORT: "6300"
+      DECISION_PORT: "6400"
+    ports:
+      - "6300:6300"
+      - "6400:6400"
+    networks:
+      - two_pc_net
+
+  client:
+    build:
+      context: .
+      dockerfile: client/Dockerfile
+    environment:
+      PARTICIPANTS: participant_a:6100:6200,participant_b:6300:6400
+      COORDINATOR_ID: cli-coordinator
+      TX_AMOUNT: "40"
+      TX_DESCRIPTION: "compose triggered tx"
+      TX_OPERATION: debit
+      VOTE_TIMEOUT: "5"
+    depends_on:
+      - participant_a
+      - participant_b
+    networks:
+      - two_pc_net
+
+networks:
+  two_pc_net:
+    driver: bridge

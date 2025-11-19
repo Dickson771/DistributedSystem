@@ -19,12 +19,18 @@ This project implements a **distributed e-commerce system** using **two differen
 
 Both architectures simulate core e-commerce functionality like browsing products, registering users, placing orders, and processing payments and shipping, but differ in **communication model**, **deployment structure**, and **scalability characteristics**.
 
+3. **Two-Phase Commit Demo (Python / gRPC)**
+   - Located in `two_phase_commit/`.
+   - Demonstrates a basic 2PC workflow with a coordinator, two voting participants, and a demo client driving transactions over gRPC.
+   - Includes Docker Compose that launches the participants, exposes both the voting and decision services on separate ports, and runs a client container that triggers a sample transaction to show commit/abort tracing.
+
 ## How to Run
 To execute either implementation:
 
-1. Navigate to the corresponding project folder:  
-   - `cd REST-Server-Client`  
-   - `cd ecommerce-order-system`  
+1. Navigate to the corresponding project folder:
+   - `cd REST-Server-Client`
+   - `cd ecommerce-order-system`
+   - `cd two_phase_commit`
 
-2. Open the respective `README.md` file inside that folder.  
+2. Open the respective `README.md` file inside that folder.
    Each README provides detailed steps to **build, run, and test** the system.

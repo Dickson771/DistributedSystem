@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package two_pc;
+
+message TransactionPayload {
+  string transaction_id = 1;
+  string description = 2;
+  double amount = 3;
+  string operation = 4;
+}
+
+message VoteRequest {
+  string participant_id = 1;
+  TransactionPayload transaction = 2;
+}
+
+message VoteResponse {
+  string transaction_id = 1;
+  string participant_id = 2;
+  bool vote = 3;
+  string reason = 4;
+}
+
+message DecisionRequest {
+  string transaction_id = 1;
+  bool commit = 2;
+  string coordinator_id = 3;
+}
+
+message Ack {
+  string transaction_id = 1;
+  string participant_id = 2;
+  bool applied = 3;
+  string message = 4;
+}
+
+service VotingService {
+  rpc Prepare(VoteRequest) returns (VoteResponse);
+}
+
+service DecisionService {
+  rpc CommitOrAbort(DecisionRequest) returns (Ack);
+}

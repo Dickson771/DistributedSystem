@@ -1,0 +1,7 @@
+artifacts/logs/
+artifacts/screens/
+artifacts/*.log
+artifacts/*.txt
+artifacts/*.csv
+__pycache__/
+*.pyc

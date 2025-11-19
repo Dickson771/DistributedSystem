@@ -1,0 +1,2 @@
+[2025-11-19T08:50:00Z] SKIP rest_smoke
+REST base URL http://localhost:8080 is unreachable. Ensure the Docker stack is running before rerunning the harness.

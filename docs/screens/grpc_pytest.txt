@@ -1,0 +1,10 @@
+[2025-11-19T08:50:00Z] START grpc_pytest
+===================================================== test session starts ======================================================
+platform linux -- Python 3.11.12, pytest-8.4.2, pluggy-1.6.0 -- /root/.pyenv/versions/3.11.12/bin/python
+cachedir: .pytest_cache
+rootdir: /workspace/DistributedSystem
+collecting ... collected 1 item
+
+tests/test_microservices.py::test_e2e_microservice_workflow PASSED                                                       [100%]
+
+====================================================== 1 passed in 0.14s =======================================================

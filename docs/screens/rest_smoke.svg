@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="120" style="background-color:#1b1b1b;">
+<text x="20" y="30" font-family="monospace" font-size="16" fill="#e0e0e0">[2025-11-19T08:50:00Z] SKIP rest_smoke</text>
+<text x="20" y="52" font-family="monospace" font-size="16" fill="#e0e0e0">REST base URL http://localhost:8080 is unreachable. Ensure the Docker stack is running before rerunning the harness.</text>
+</svg>

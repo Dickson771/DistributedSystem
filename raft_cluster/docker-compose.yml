@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  node1:
+    build: .
+    container_name: raft-node1
+    environment:
+      RAFT_NODE_ID: "1"
+      RAFT_PEERS: "node2:50051,node3:50051,node4:50051,node5:50051"
+    ports:
+      - "6001:50051"
+
+  node2:
+    build: .
+    container_name: raft-node2
+    environment:
+      RAFT_NODE_ID: "2"
+      RAFT_PEERS: "node1:50051,node3:50051,node4:50051,node5:50051"
+    ports:
+      - "6002:50051"
+
+  node3:
+    build: .
+    container_name: raft-node3
+    environment:
+      RAFT_NODE_ID: "3"
+      RAFT_PEERS: "node1:50051,node2:50051,node4:50051,node5:50051"
+    ports:
+      - "6003:50051"
+
+  node4:
+    build: .
+    container_name: raft-node4
+    environment:
+      RAFT_NODE_ID: "4"
+      RAFT_PEERS: "node1:50051,node2:50051,node3:50051,node5:50051"
+    ports:
+      - "6004:50051"
+
+  node5:
+    build: .
+    container_name: raft-node5
+    environment:
+      RAFT_NODE_ID: "5"
+      RAFT_PEERS: "node1:50051,node2:50051,node3:50051,node4:50051"
+    ports:
+      - "6005:50051"

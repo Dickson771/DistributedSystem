@@ -6,15 +6,21 @@ import sys
 
 def generate_proto_files():
     proto_dir = "protos"
-    services = ["user", "product", "order", "payment", "shipping"]
-    
-    for service in services:
+    services = {
+        "user": "user_service",
+        "product": "product_service",
+        "order": "order_service",
+        "payment": "payment_service",
+        "shipping": "shipping_service",
+        "two_pc": "two_pc",
+    }
+
+    for service, output_dir in services.items():
         proto_file = os.path.join(proto_dir, f"{service}.proto")
-        output_dir = f"{service}_service"
-        
+
         # Create output directory if it doesn't exist
         os.makedirs(output_dir, exist_ok=True)
-        
+
         # Generate gRPC Python code
         cmd = [
             "python", "-m", "grpc_tools.protoc",
@@ -23,10 +29,10 @@ def generate_proto_files():
             f"--grpc_python_out={output_dir}",
             proto_file
         ]
-        
+
         print(f"Generating code for {service}.proto...")
         result = subprocess.run(cmd, capture_output=True, text=True)
-        
+
         if result.returncode != 0:
             print(f"Error generating {service}.proto: {result.stderr}")
         else:

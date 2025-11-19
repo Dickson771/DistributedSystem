@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package two_pc;
+
+message VoteRequest {
+    string transaction_id = 1;
+    string participant_id = 2;
+    string operation = 3;
+}
+
+message VoteResponse {
+    bool can_commit = 1;
+    string participant_id = 2;
+    string message = 3;
+}
+
+service TwoPCVoting {
+    rpc RequestVote (VoteRequest) returns (VoteResponse);
+}
